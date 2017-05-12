@@ -1,6 +1,7 @@
-package io.kreatimont.task;
+package io.kreatimont.task.servlet;
 
 import io.kreatimont.task.model.User;
+import io.kreatimont.task.utils.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,8 +39,8 @@ public class RegServlet extends HttpServlet {
             if(!resultSet.next()) {
 
                 PreparedStatement insertUser = connection.prepareStatement
-                        ("INSERT INTO users (name, surname, email, phone_number, city, country, password)" +
-                                " VALUES ('"+name+"','"+surname+"','"+email+"','"+phone+"','"+city+"','"+country+"','"+ password +"');");
+                        ("INSERT INTO users (name, surname, email, phone_number, city, country, password, role)" +
+                                " VALUES ('"+name+"','"+surname+"','"+email+"','"+phone+"','"+city+"','"+country+"','"+ password +"','"+ "user" +"');");
 
                 int i = insertUser.executeUpdate();
                 if(i > 0 ) {

@@ -6,19 +6,23 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.LoginServlet</servlet-class>
+        <servlet-class>io.kreatimont.task.servlet.LoginServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>RegServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.RegServlet</servlet-class>
+        <servlet-class>io.kreatimont.task.servlet.RegServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.LogoutServlet</servlet-class>
+        <servlet-class>io.kreatimont.task.servlet.LogoutServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>io.kreatimont.task.servlet.AdminServlet</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -34,6 +38,11 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
 </web-app>

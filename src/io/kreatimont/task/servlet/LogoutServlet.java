@@ -1,4 +1,4 @@
-package io.kreatimont.task;
+package io.kreatimont.task.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

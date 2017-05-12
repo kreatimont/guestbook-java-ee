@@ -11,10 +11,8 @@
     <title>Login</title>
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
-<body>
+<body style="width: 100vw; height: 100vh;">
     <%
-//        User user;
-//        user = (User) request.getSession().getAttribute("user");
         if(request.getSession(false) != null) {
             request.getSession().removeAttribute("user");
         }

@@ -1,4 +1,4 @@
-package io.kreatimont.task.SessionHelper;
+package io.kreatimont.task.utils;
 
 import io.kreatimont.task.model.User;
 
