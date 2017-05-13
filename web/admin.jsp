@@ -1,7 +1,6 @@
 <%@ page import="io.kreatimont.task.model.User" %>
 <%@ page import="io.kreatimont.task.utils.Validator" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,36 +11,28 @@
 <body>
 <%
 
-    if(request.getSession() == null) {
-        request.setAttribute("status", "failed");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        return;
-    } else if (request.getSession().getAttribute("user") == null) {
-        request.setAttribute("status", "failed");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        return;
-    }
+    HttpServletRequest req = request;
 
+    String bdayFrom = req.getParameter("bdayFrom");
+    String bdayTo = req.getParameter("bdayTo");
+    String withCity = req.getParameter("withCity");
+    String withCountry = req.getParameter("withCountry");
+    String withRole = req.getParameter("withRole");
+
+    String query = req.getParameter("isQuery");
     boolean isQuery = false;
-    List<User> queryUser = new ArrayList<>();
-    if (request.getSession().getAttribute("isQuery") != null && (boolean) request.getSession().getAttribute("isQuery")) {
-        queryUser = (List<User>) request.getAttribute("queryUser");
+
+    if(query != null && query.equals("true")) {
         isQuery = true;
     }
 
-//    User userFromRequest = (User) request.getAttribute("user");
-//    User userFromSession = (User) request.getSession().getAttribute("user");
-//
-//    User user;
-//    if(userFromRequest == null && userFromSession == null) {
-//        request.setAttribute("status", "failed");
-//        request.getRequestDispatcher("index.jsp").forward(request, response);
-//        return;
-//    } else if (userFromRequest != null) {
-//        user = userFromRequest;
-//    } else {
-//        user = userFromSession;
-//    }
+    List<User> userList;
+
+    if(isQuery) {
+        userList = Validator.getUsersWith(bdayFrom,bdayTo,withCountry,withCity,withRole);
+    } else {
+        userList = Validator.getAllUsers();
+    }
 
 %>
 <div class="container-fluid">
@@ -56,53 +47,60 @@
     </div>
     <div class="col-lg-12 well">
         <div class="row">
-            <form onsubmit="handleUserData()">
+            <form method="get" action="/admin.jsp">
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-2 form-group">
                             <label>Birthday from</label>
                             <input name="bdayFrom" type="date" placeholder="Birthday from" class="form-control"
                                    pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
-                                   value="<% if(isQuery) out.print((String)request.getAttribute("bdayFrom")); else out.print("1498-08-07"); %>"
+                                   value="<% out.print(isQuery ? bdayFrom : "1547-09-09"); %>"
                                    required>
                         </div>
                         <div class="col-sm-2 form-group">
                             <label>Birthday to</label>
                             <input name="bdayTo" type="date" placeholder="Birthday to" class="form-control"
                                    pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
-                                   value="<% if(isQuery) out.print((String)request.getAttribute("bdayTo")); else out.print("2017-01-01"); %>"
+                                   value="<% out.print(isQuery ? bdayTo : "2017-09-09"); %>"
                                    required>
                         </div>
                         <div class="col-sm-2 form-group">
                             <label>City</label>
                             <input name="withCity" type="text" placeholder="City name.." class="form-control"
-                                   value="<% if(isQuery) out.print((String)request.getAttribute("withCity")); else out.print("LA"); %>"
+                                   value="<% out.print(isQuery ? withCity : "Chicago"); %>"
                                    required>
                         </div>
                         <div class="col-sm-2 form-group">
                             <label>Country</label>
                             <input name="withCountry" type="text" placeholder="Contry name.." class="form-control"
-                                   value="<% if(isQuery) out.print((String)request.getAttribute("withCountry")); else out.print("USA"); %>"
+                                   value="<% out.print(isQuery ? withCountry : "United States"); %>"
                                    required>
                         </div>
-                        <div class="col-sm-2 form-group">
+                        <div class="col-sm-1 form-group">
                             <label>Role</label>
                             <select name="withRole" id="roles" class="form-control">
                                 <option value="user">user</option>
                                 <option value="admin">admin</option>
                             </select>
                         </div>
+                        <div class="col-sm-1 form-group">
+                            <label>Is query?</label>
+                            <br>
+                            <input type="checkbox"
+                                   name="isQuery"
+                                   checked="checked"
+                                   value="true" />
+                        </div>
                         <div class="col-sm-2 form-group">
                             <br>
-                            <a class="btn btn-info" onclick="handleUserData()">Submit</a>
-                            <%--<button type="submit" class="btn btn-info">Submit</button>--%>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <label>Users<% if (isQuery) {out.print("(query)");} %>:</label>
+    <label>Users:</label>
     <table class="table">
         <thead>
             <tr>
@@ -119,14 +117,7 @@
         <tbody>
             <%
 
-                List<User> allUsers;
-
-                if (isQuery) {
-                    allUsers = queryUser;
-                } else {
-                    allUsers = Validator.getAllUsers();
-                }
-
+                List<User> allUsers = userList;
                 if(allUsers != null) {
                     for (int i = 0; i < allUsers.size(); i++) {
                         out.print("  <tr>");
@@ -146,6 +137,7 @@
             %>
         </tbody>
     </table>
+    <p>sql: (<% if(Validator.queries.size() > 0) out.print(Validator.queries.get(Validator.queries.size() - 1)); %>):</p>
     <footer class="footer">
         <p>&copy; 2017 (kreatimont) SoftGroup task.</p>
     </footer>
@@ -154,9 +146,6 @@
     function handleUserData() {
         var formData = new FormData(document.querySelector('query'));
 
-        <% isQuery = true; %>
-
-        location.reload(true);
         return false;
     }
 </script>

@@ -22,18 +22,15 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("user", user);
             req.setAttribute("user",user);
 
-            System.out.print(user.getRole());
-
             if (user.getRole().equals("admin")) {
-                System.out.print("\ttrue");
-                req.getRequestDispatcher("admin.jsp").forward(req,resp);
+                resp.sendRedirect("admin.jsp");
             } else {
-                req.getRequestDispatcher("home.jsp").forward(req,resp);
+                resp.sendRedirect("home.jsp?bdayFrom=1498-08-07&bdayTo=2017-01-01&withCity=Chicago&withCountry=United+States&withRole=user&isQuery=false");
             }
 
         } else {
             req.setAttribute("status","failed");
-            req.getRequestDispatcher("index.jsp").forward(req,resp);
+            resp.sendRedirect("index.jsp");
         }
 
     }

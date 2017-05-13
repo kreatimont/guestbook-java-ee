@@ -2,7 +2,10 @@ package io.kreatimont.task.utils;
 
 import io.kreatimont.task.model.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public class Validator {
     public static final String DB_USERNAME = "root";
     public static final String DB_PASSWORD = "0451";
     public static final String USERS_TABLE = "users";
+
+    public static List<String> queries = new ArrayList<>();
 
     public static User checkUser(String email, String password) {
 
@@ -85,30 +90,36 @@ public class Validator {
                                           String withCountry, String withCity,
                                           String withRole) {
 
+        Validator.queries.add("Start getUserWith");
+
         try {
 
             Class.forName(DB_CLASS);
 
             Connection connection = DriverManager.getConnection(URLFIXED,DB_USERNAME,DB_PASSWORD);
 
-            String query = "select * from " + USERS_TABLE + " \n\t" +
-                    "where bday between " + bdayFrom + " and " + bdayTo + "\n\t\t";
+            Validator.queries.add("get connection");
+
+            String query = "select * from " + USERS_TABLE + " " +
+                    "where bday between '" + bdayFrom + "' and '" + bdayTo + "' ";
+
+            Validator.queries.add("query: " + query);
 
             if(withCountry.length() > 0) {
-                query += query.concat("and country = " + withCountry + " \n\t\t");
+                query += (" and country = '" + withCountry + "' ");
             }
 
             if(withCity.length() > 0) {
-                query += query.concat("and city = " + withCity + " \n\t\t");
+                query += (" and city = '" + withCity + "' ");
             }
 
             if(withRole.length() > 0) {
-                query += query.concat("and role = " + withRole + " \n\t\t");
+                query += (" and role = '" + withRole + "' ");
             }
 
-            query += query.concat(";");
+            query += (";");
 
-            System.out.print(query);
+            Validator.queries.add("result query: " + query);
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
@@ -128,6 +139,7 @@ public class Validator {
             }
             return users;
         } catch (Exception ex) {
+            System.out.println(queries.get(Validator.queries.size() - 1));
             ex.printStackTrace();
         }
         return null;
