@@ -81,5 +81,57 @@ public class Validator {
         return null;
     }
 
+    public static List<User> getUsersWith(String bdayFrom, String bdayTo,
+                                          String withCountry, String withCity,
+                                          String withRole) {
+
+        try {
+
+            Class.forName(DB_CLASS);
+
+            Connection connection = DriverManager.getConnection(URLFIXED,DB_USERNAME,DB_PASSWORD);
+
+            String query = "select * from " + USERS_TABLE + " \n\t" +
+                    "where bday between " + bdayFrom + " and " + bdayTo + "\n\t\t";
+
+            if(withCountry.length() > 0) {
+                query += query.concat("and country = " + withCountry + " \n\t\t");
+            }
+
+            if(withCity.length() > 0) {
+                query += query.concat("and city = " + withCity + " \n\t\t");
+            }
+
+            if(withRole.length() > 0) {
+                query += query.concat("and role = " + withRole + " \n\t\t");
+            }
+
+            query += query.concat(";");
+
+            System.out.print(query);
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<User> users = new ArrayList<>();
+            while (resultSet.next()) {
+                User user = new User(resultSet.getString("name"),
+                        resultSet.getString("surname"),
+                        resultSet.getString("email"));
+                user.setCity(resultSet.getString("city"));
+                user.setCountry(resultSet.getString("country"));
+                user.setPhone(resultSet.getString("phone_number"));
+                user.setBday(resultSet.getDate("bday"));
+                user.setRole(resultSet.getString("role"));
+
+                users.add(user);
+            }
+            return users;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

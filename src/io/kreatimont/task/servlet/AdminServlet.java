@@ -15,6 +15,26 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
+
+        String bdayFrom = req.getParameter("bdayFrom");
+        String bdayTo = req.getParameter("bdayTo");
+        String withCity = req.getParameter("withCity");
+        String withCountry = req.getParameter("withCountry");
+        String withRole = req.getParameter("withRole");
+
+        req.setAttribute("bdayFrom", bdayFrom);
+        req.setAttribute("bdayTo", bdayTo);
+        req.setAttribute("withCity", withCity);
+        req.setAttribute("withCountry", withCountry);
+        req.setAttribute("withRole", withRole);
+
+        req.getSession().setAttribute("isQuery",true);
+
+        req.setAttribute("queryUser", Validator.getUsersWith(bdayFrom,bdayTo,withCountry,withCity,withRole));
+
+        resp.sendRedirect("admin.jsp");
+        resp.setHeader("REFRESH", "0");
+
         req.getRequestDispatcher("admin.jsp").forward(req, resp);
     }
 
