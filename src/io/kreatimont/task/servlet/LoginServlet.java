@@ -2,7 +2,7 @@ package io.kreatimont.task.servlet;
 
 
 import io.kreatimont.task.model.User;
-import io.kreatimont.task.utils.Validator;
+import io.kreatimont.task.utils.DatabaseManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = Validator.checkUser(email, password);
+        User user = DatabaseManager.getUser(email, password);
 
         if(user != null) {
             req.getSession().setAttribute("user", user);

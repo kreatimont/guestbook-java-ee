@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Validator {
+public class DatabaseManager {
 
     public static final String DB_CLASS = "com.mysql.cj.jdbc.Driver";
-
     public static final String DB_URL = "jdbc:mysql://localhost:3306/taskdb";
+
     public final static String URLFIXED =
             "jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
                     "&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -23,7 +23,7 @@ public class Validator {
 
     public static List<String> queries = new ArrayList<>();
 
-    public static User checkUser(String email, String password) {
+    public static User getUser(String email, String password) {
 
         try {
 
@@ -86,64 +86,39 @@ public class Validator {
         return null;
     }
 
-    public static List<User> getUsersWith(String bdayFrom, String bdayTo,
-                                          String withCountry, String withCity,
-                                          String withRole) {
-
-        Validator.queries.add("Start getUserWith");
-
+    public static List<User> getUsersWith(String bdayFrom, String bdayTo, String withCountry, String withCity, String withRole) {
         try {
-
             Class.forName(DB_CLASS);
-
             Connection connection = DriverManager.getConnection(URLFIXED,DB_USERNAME,DB_PASSWORD);
+            String query = "select * from " + USERS_TABLE + " where bday between '" + bdayFrom + "' and '" + bdayTo + "' ";
 
-            Validator.queries.add("get connection");
-
-            String query = "select * from " + USERS_TABLE + " " +
-                    "where bday between '" + bdayFrom + "' and '" + bdayTo + "' ";
-
-            Validator.queries.add("query: " + query);
-
-            if(withCountry.length() > 0) {
-                query += (" and country = '" + withCountry + "' ");
-            }
-
-            if(withCity.length() > 0) {
-                query += (" and city = '" + withCity + "' ");
-            }
-
-            if(withRole.length() > 0) {
-                query += (" and role = '" + withRole + "' ");
-            }
-
+            if(withCountry.length() > 0) { query += (" and country = '" + withCountry + "' "); }
+            if(withCity.length() > 0) { query += (" and city = '" + withCity + "' "); }
+            if(withRole.length() > 0) { query += (" and role = '" + withRole + "' "); }
             query += (";");
 
-            Validator.queries.add("result query: " + query);
-
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<User> users = new ArrayList<>();
             while (resultSet.next()) {
-                User user = new User(resultSet.getString("name"),
+                User user = new User(
+                        resultSet.getString("name"),
                         resultSet.getString("surname"),
-                        resultSet.getString("email"));
-                user.setCity(resultSet.getString("city"));
-                user.setCountry(resultSet.getString("country"));
-                user.setPhone(resultSet.getString("phone_number"));
-                user.setBday(resultSet.getDate("bday"));
-                user.setRole(resultSet.getString("role"));
-
+                        resultSet.getString("city"),
+                        resultSet.getString("country"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("email"),
+                        resultSet.getString("role"),
+                        resultSet.getDate("bday")
+                );
                 users.add(user);
             }
+            DatabaseManager.queries.add("(query): " + query);
             return users;
         } catch (Exception ex) {
-            System.out.println(queries.get(Validator.queries.size() - 1));
             ex.printStackTrace();
         }
         return null;
     }
-
 
 }

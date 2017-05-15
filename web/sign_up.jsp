@@ -20,15 +20,21 @@
                 <form method="post" action="signup">
                     <div class="col-sm-12">
                         <div class="row">
-                            <div class="col-sm-6 form-group">
+                            <div class="col-sm-4 form-group">
                                 <label>First Name</label>
                                 <input name="name" type="text" placeholder="Enter First Name Here.." class="form-control"
                                 required>
                             </div>
-                            <div class="col-sm-6 form-group">
+                            <div class="col-sm-4 form-group">
                                 <label>Surname</label>
                                 <input name="surname" type="text" placeholder="Enter Last Name Here.." class="form-control"
                                 required>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label>Birthday</label>
+                                <input name="bday" type="date" placeholder="Birthday" class="form-control"
+                                       pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+                                       required>
                             </div>
                         </div>
                         <div class="row">

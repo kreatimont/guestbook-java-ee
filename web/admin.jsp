@@ -1,5 +1,5 @@
 <%@ page import="io.kreatimont.task.model.User" %>
-<%@ page import="io.kreatimont.task.utils.Validator" %>
+<%@ page import="io.kreatimont.task.utils.DatabaseManager" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -29,9 +29,9 @@
     List<User> userList;
 
     if(isQuery) {
-        userList = Validator.getUsersWith(bdayFrom,bdayTo,withCountry,withCity,withRole);
+        userList = DatabaseManager.getUsersWith(bdayFrom,bdayTo,withCountry,withCity,withRole);
     } else {
-        userList = Validator.getAllUsers();
+        userList = DatabaseManager.getAllUsers();
     }
 
 %>
@@ -68,20 +68,30 @@
                             <label>City</label>
                             <input name="withCity" type="text" placeholder="City name.." class="form-control"
                                    value="<% out.print(isQuery ? withCity : "Chicago"); %>"
-                                   required>
+                            >
                         </div>
                         <div class="col-sm-2 form-group">
                             <label>Country</label>
                             <input name="withCountry" type="text" placeholder="Contry name.." class="form-control"
                                    value="<% out.print(isQuery ? withCountry : "United States"); %>"
-                                   required>
+                            >
                         </div>
-                        <div class="col-sm-1 form-group">
+                        <div class="col-sm-2 form-group">
                             <label>Role</label>
-                            <select name="withRole" id="roles" class="form-control">
-                                <option value="user">user</option>
-                                <option value="admin">admin</option>
-                            </select>
+                            <%
+                                if (isQuery && withRole.equals("admin")) {
+                                    out.print("<select name=\"withRole\" id=\"roles\" class=\"form-control\">\n" +
+                                            "                                <option value=\"admin\">admin</option>\n" +
+                                            "                                <option value=\"user\">user</option>\n" +
+                                            "                            </select>");
+                                } else {
+                                    out.print("<select name=\"withRole\" id=\"roles\" class=\"form-control\">\n" +
+                                            "                                <option value=\"user\">user</option>\n" +
+                                            "                                <option value=\"admin\">admin</option>\n" +
+                                            "                            </select>");
+                                }
+
+                            %>
                         </div>
                         <div class="col-sm-1 form-group">
                             <label>Is query?</label>
@@ -91,7 +101,7 @@
                                    checked="checked"
                                    value="true" />
                         </div>
-                        <div class="col-sm-2 form-group">
+                        <div class="col-sm-1 form-group">
                             <br>
                             <button type="submit" class="btn btn-info">Submit</button>
                         </div>
@@ -137,7 +147,9 @@
             %>
         </tbody>
     </table>
-    <p>sql: (<% if(Validator.queries.size() > 0) out.print(Validator.queries.get(Validator.queries.size() - 1)); %>):</p>
+    <br>
+    <br>
+    <p>sql: (<% if(DatabaseManager.queries.size() > 0) out.print(DatabaseManager.queries.get(DatabaseManager.queries.size() - 1)); %>):</p>
     <footer class="footer">
         <p>&copy; 2017 (kreatimont) SoftGroup task.</p>
     </footer>

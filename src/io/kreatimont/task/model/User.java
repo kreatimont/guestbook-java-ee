@@ -94,5 +94,16 @@ public class User {
     public void setBday(Date bday) {
         this.bday = bday;
     }
+
+    public User(String name, String surname, String city, String country, String phone, String email, String role, Date bday) {
+        this.name = name;
+        this.surname = surname;
+        this.city = city;
+        this.country = country;
+        this.phone = phone;
+        this.email = email;
+        this.role = role;
+        this.bday = bday;
+    }
 }
 
