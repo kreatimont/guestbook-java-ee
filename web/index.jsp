@@ -36,7 +36,7 @@
                        pattern=".{8,}" required>
             </div>
             <button type="submit" class="btn btn-primary">Log in</button>
-            <a href="sign_up.jsp" class="btn btn-success" role="button">Sign Up</a>
+            <a href="${pageContext.request.contextPath}/signup" class="btn btn-success" role="button">Sign Up</a>
         </form>
         <p style="color: red;">
             <%

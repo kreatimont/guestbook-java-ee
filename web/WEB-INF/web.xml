@@ -10,13 +10,23 @@
     </servlet>
 
     <servlet>
-        <servlet-name>RegServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.servlet.RegServlet</servlet-class>
+        <servlet-name>RegistrationServlet</servlet-name>
+        <servlet-class>io.kreatimont.task.servlet.RegistrationServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>io.kreatimont.task.servlet.LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>io.kreatimont.task.servlet.HomeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UsersController</servlet-name>
+        <servlet-class>io.kreatimont.task.servlet.api.UsersController</servlet-class>
     </servlet>
 
 
@@ -26,7 +36,7 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>RegServlet</servlet-name>
+        <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
 
@@ -35,5 +45,14 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UsersController</servlet-name>
+        <url-pattern>/api/all</url-pattern>
+    </servlet-mapping>
 
 </web-app>

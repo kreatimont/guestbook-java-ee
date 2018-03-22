@@ -1,4 +1,4 @@
-<%@ page import="io.kreatimont.task.model.User" %>
+<jsp:useBean id="user" scope="request" type="io.kreatimont.task.model.User"/>
 <%--
   Created by IntelliJ IDEA.
   User: kreatimont
@@ -14,33 +14,6 @@
     <link href="css/jumbotron-narrow.css" rel="stylesheet">
 </head>
 <body>
-    <%
-
-        if(request.getSession() == null) {
-            request.setAttribute("status", "failed");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            return;
-        } else if (request.getSession().getAttribute("user") == null) {
-            request.setAttribute("status", "failed");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            return;
-        }
-
-        User userFromRequest = (User) request.getAttribute("user");
-        User userFromSession = (User) request.getSession().getAttribute("user");
-
-        User user;
-        if(userFromRequest == null && userFromSession == null) {
-            request.setAttribute("status", "failed");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            return;
-        } else if (userFromRequest != null) {
-            user = userFromRequest;
-        } else {
-            user = userFromSession;
-        }
-
-    %>
     <div class="container">
         <div class="header clearfix">
             <nav>
@@ -56,24 +29,24 @@
         <div class="row marketing">
             <div class="col-lg-6">
                 <h4>Name</h4>
-                <p><%=user.getName()%></p>
+                <p>${user.name}</p>
 
                 <h4>Country</h4>
-                <p><%=user.getCountry()%></p>
+                <p>${user.country}</p>
 
                 <h4>Email</h4>
-                <p><%=user.getEmail()%></p>
+                <p>${user.email}</p>
             </div>
 
             <div class="col-lg-6">
                 <h4>Surname</h4>
-                <p><%=user.getSurname()%></p>
+                <p>${user.surname}</p>
 
                 <h4>City</h4>
-                <p><%=user.getCity()%></p>
+                <p>${user.city}</p>
 
                 <h4>Phone</h4>
-                <p><%=user.getPhone()%></p>
+                <p>${user.phone}</p>
             </div>
         </div>
 

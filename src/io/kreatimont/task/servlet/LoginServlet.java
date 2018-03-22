@@ -2,6 +2,7 @@ package io.kreatimont.task.servlet;
 
 
 import io.kreatimont.task.model.User;
+import io.kreatimont.task.model.UserRepository;
 import io.kreatimont.task.utils.DatabaseManager;
 
 import javax.servlet.ServletException;
@@ -16,22 +17,27 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User user = DatabaseManager.getUser(email, password);
+        User user = UserRepository.instance().findUserByEmailAndPassword(email, password);
 
         if(user != null) {
-            req.getSession().setAttribute("user", user);
-            req.setAttribute("user",user);
+
+            String homePath = "/home";
 
             if (user.getRole().equals("admin")) {
-                resp.sendRedirect("admin.jsp");
-            } else {
-                resp.sendRedirect("home.jsp?bdayFrom=1498-08-07&bdayTo=2017-01-01&withCity=Chicago&withCountry=United+States&withRole=user&isQuery=false");
+                homePath = "/admin";
             }
 
+            req.getSession().setAttribute("user", user);
+            resp.sendRedirect(homePath);
         } else {
             req.setAttribute("status","failed");
-            resp.sendRedirect("index.jsp");
+            this.getServletContext().getRequestDispatcher("index.jsp").forward(req, resp);
         }
 
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

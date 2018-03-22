@@ -11,6 +11,7 @@ public class User {
     String phone;
     String email;
     String role;
+    String password;
     Date bday;
 
 
@@ -28,6 +29,10 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.email = email;
+    }
+
+    public User() {
+
     }
 
     public String getRole() {
@@ -95,6 +100,14 @@ public class User {
         this.bday = bday;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public User(String name, String surname, String city, String country, String phone, String email, String role, Date bday) {
         this.name = name;
         this.surname = surname;
@@ -105,5 +118,8 @@ public class User {
         this.role = role;
         this.bday = bday;
     }
+
+
+
 }
 

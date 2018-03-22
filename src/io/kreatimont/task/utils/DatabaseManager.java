@@ -1,39 +1,52 @@
 package io.kreatimont.task.utils;
 
+import com.sun.istack.internal.Nullable;
 import io.kreatimont.task.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
 
-    public static final String DB_CLASS = "com.mysql.cj.jdbc.Driver";
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/taskdb";
+    private static DatabaseManager databaseManager = new DatabaseManager();
 
-    public final static String URLFIXED =
-            "jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
-                    "&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private DatabaseManager() {
+    }
+
+    public static DatabaseManager instance() {
+        return databaseManager;
+    }
+
+    public static final String DB_CLASS = "com.mysql.cj.jdbc.Driver";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/taskdb";    /*"jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
+                    "&useLegacyDatetimeCode=false&serverTimezone=UTC";*/
+
     public static final String DB_USERNAME = "root";
     public static final String DB_PASSWORD = "0451";
     public static final String USERS_TABLE = "users";
 
     public static List<String> queries = new ArrayList<>();
 
+    @Nullable
+    public Connection getConnection() {
+        try {
+            Class.forName(DB_CLASS);
+            return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static User getUser(String email, String password) {
 
         try {
-
             Class.forName(DB_CLASS);
 
-            Connection connection = DriverManager.getConnection(URLFIXED,DB_USERNAME,DB_PASSWORD);
+            Connection connection = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD);
             PreparedStatement preparedStatement =
-                    connection.prepareStatement(
-                            "SELECT * FROM " + USERS_TABLE + " WHERE email=? AND password=?");
-
+                    connection.prepareStatement("SELECT * FROM " + USERS_TABLE + " WHERE email=? AND password=?");
 
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -59,7 +72,7 @@ public class DatabaseManager {
 
             Class.forName(DB_CLASS);
 
-            Connection connection = DriverManager.getConnection(URLFIXED,DB_USERNAME,DB_PASSWORD);
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             PreparedStatement preparedStatement =
                     connection.prepareStatement(
                             "SELECT * FROM " + USERS_TABLE + ";");
@@ -89,7 +102,7 @@ public class DatabaseManager {
     public static List<User> getUsersWith(String bdayFrom, String bdayTo, String withCountry, String withCity, String withRole) {
         try {
             Class.forName(DB_CLASS);
-            Connection connection = DriverManager.getConnection(URLFIXED,DB_USERNAME,DB_PASSWORD);
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
             String query = "select * from " + USERS_TABLE + " where bday between '" + bdayFrom + "' and '" + bdayTo + "' ";
 
             if(withCountry.length() > 0) { query += (" and country = '" + withCountry + "' "); }
