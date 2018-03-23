@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dbConfiguration
+        clazz="com.mysql.cj.jdbc.Driver"
+        password="0451"
+        url="jdbc:mysql://localhost:3306/taskdb"
+        username="root"
+/>
