@@ -1,9 +1,8 @@
-package io.kreatimont.task.model;
+package main.java.io.kreatimont.task.model;
 
 import com.sun.istack.internal.NotNull;
-import io.kreatimont.task.utils.DatabaseManager;
+import main.java.io.kreatimont.task.utils.DatabaseManager;
 
-import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +26,7 @@ public class UserRepository {
     }
 
     //DBConnection
-    
+
     private Connection connection;
 
     //CRUD operation

@@ -1,4 +1,4 @@
-<%@ page import="io.kreatimont.task.model.User" %><%--
+<%@ page import="main.java.io.kreatimont.task.model.User" %><%--
   Created by IntelliJ IDEA.
   User: kreatimont
   Date: 04.01.2017

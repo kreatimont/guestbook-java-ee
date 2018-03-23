@@ -1,6 +1,6 @@
-package io.kreatimont.task.servlet;
+package main.java.io.kreatimont.task.servlet;
 
-import io.kreatimont.task.model.User;
+import main.java.io.kreatimont.task.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,4 +1,4 @@
-<jsp:useBean id="user" scope="request" type="io.kreatimont.task.model.User"/>
+<jsp:useBean id="user" scope="request" type="main.java.io.kreatimont.task.model.User"/>
 <%--
   Created by IntelliJ IDEA.
   User: kreatimont

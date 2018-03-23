@@ -6,27 +6,27 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.servlet.LoginServlet</servlet-class>
+        <servlet-class>main.java.io.kreatimont.task.servlet.LoginServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>RegistrationServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.servlet.RegistrationServlet</servlet-class>
+        <servlet-class>main.java.io.kreatimont.task.servlet.RegistrationServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.servlet.LogoutServlet</servlet-class>
+        <servlet-class>main.java.io.kreatimont.task.servlet.LogoutServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>io.kreatimont.task.servlet.HomeServlet</servlet-class>
+        <servlet-class>main.java.io.kreatimont.task.servlet.HomeServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>UsersController</servlet-name>
-        <servlet-class>io.kreatimont.task.servlet.api.UsersController</servlet-class>
+        <servlet-class>main.java.io.kreatimont.task.servlet.api.UsersController</servlet-class>
     </servlet>
 
 

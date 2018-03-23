@@ -1,4 +1,4 @@
-package io.kreatimont.task.model;
+package main.java.io.kreatimont.task.model;
 
 import java.util.Date;
 

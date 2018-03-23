@@ -1,4 +1,4 @@
-package io.kreatimont.task.utils;
+package main.java.io.kreatimont.task.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

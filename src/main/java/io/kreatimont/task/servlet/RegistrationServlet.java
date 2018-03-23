@@ -1,16 +1,13 @@
-package io.kreatimont.task.servlet;
+package main.java.io.kreatimont.task.servlet;
 
-import io.kreatimont.task.model.User;
-import io.kreatimont.task.model.UserRepository;
-import io.kreatimont.task.utils.DatabaseManager;
+import main.java.io.kreatimont.task.model.User;
+import main.java.io.kreatimont.task.model.UserRepository;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.*;
 import java.util.Date;
 
 public class RegistrationServlet extends HttpServlet {

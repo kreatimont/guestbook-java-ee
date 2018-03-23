@@ -1,5 +1,5 @@
-<%@ page import="io.kreatimont.task.model.User" %>
-<%@ page import="io.kreatimont.task.utils.DatabaseManager" %>
+<%@ page import="main.java.io.kreatimont.task.model.User" %>
+<%@ page import="main.java.io.kreatimont.task.utils.DatabaseManager" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
