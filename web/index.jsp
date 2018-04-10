@@ -40,7 +40,7 @@
         </form>
         <p style="color: red;">
             <%
-                if(request.getAttribute("status") != null) {
+                if(request.getSession().getAttribute("status") != null) {
                     out.print("Login failed. Try again.");
                 }
             %>

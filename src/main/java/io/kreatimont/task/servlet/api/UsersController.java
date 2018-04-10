@@ -2,7 +2,7 @@ package main.java.io.kreatimont.task.servlet.api;
 
 import com.google.gson.Gson;
 import main.java.io.kreatimont.task.model.User;
-import main.java.io.kreatimont.task.model.UserRepository;
+import main.java.io.kreatimont.task.db.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

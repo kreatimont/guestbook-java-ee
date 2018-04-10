@@ -1,7 +1,7 @@
 package main.java.io.kreatimont.task.servlet;
 
 import main.java.io.kreatimont.task.model.User;
-import main.java.io.kreatimont.task.model.UserRepository;
+import main.java.io.kreatimont.task.db.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

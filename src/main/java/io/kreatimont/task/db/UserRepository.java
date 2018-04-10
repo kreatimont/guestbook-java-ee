@@ -1,6 +1,7 @@
-package main.java.io.kreatimont.task.model;
+package main.java.io.kreatimont.task.db;
 
 import com.sun.istack.internal.NotNull;
+import main.java.io.kreatimont.task.model.User;
 import main.java.io.kreatimont.task.utils.DatabaseManager;
 
 import java.sql.Connection;

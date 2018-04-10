@@ -23,11 +23,11 @@ public class DatabaseManager {
     }
 
     private String dbClass = "com.mysql.cj.jdbc.Driver";
-    private String dbUrl = "jdbc:mysql://localhost:3306/taskdb";    /*"jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
+    private String dbUrl = "jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";    /*"jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
                             "&useLegacyDatetimeCode=false&serverTimezone=UTC";*/
 
     private String dbUsername = "root";
-    private String dbPassword = "root";
+    private String dbPassword = "0451";
 
     public static final String USERS_TABLE = "users";
 
@@ -35,7 +35,6 @@ public class DatabaseManager {
 
     @Nullable
     public Connection getConnection() {
-        this.parseConfigurationFromJson();
         try {
             Class.forName(dbClass);
             return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);

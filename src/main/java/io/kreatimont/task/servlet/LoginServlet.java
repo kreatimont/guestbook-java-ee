@@ -2,14 +2,13 @@ package main.java.io.kreatimont.task.servlet;
 
 
 import main.java.io.kreatimont.task.model.User;
-import main.java.io.kreatimont.task.model.UserRepository;
+import main.java.io.kreatimont.task.db.UserRepository;
 import main.java.io.kreatimont.task.utils.DatabaseManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.DataInput;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
@@ -31,7 +30,7 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect(homePath);
         } else {
-            req.setAttribute("status","failed");
+            req.getSession().setAttribute("status", "failed");
             this.getServletContext().getRequestDispatcher("index.jsp").forward(req, resp);
         }
 
