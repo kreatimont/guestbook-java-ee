@@ -1,6 +1,5 @@
 package main.java.io.kreatimont.task.db;
 
-import com.sun.istack.internal.NotNull;
 import main.java.io.kreatimont.task.model.User;
 import main.java.io.kreatimont.task.utils.DatabaseManager;
 
@@ -32,7 +31,7 @@ public class UserRepository {
 
     //CRUD operation
 
-    public void addUser(@NotNull User user) {
+    public void addUser(User user) {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(
@@ -60,7 +59,7 @@ public class UserRepository {
 
     }
 
-    public User findUserById(@NotNull Integer id) {
+    public User findUserById(Integer id) {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = this.connection.prepareStatement(
@@ -76,7 +75,7 @@ public class UserRepository {
         return null;
     }
 
-    public void updateUser(@NotNull User user, @NotNull Integer id) {
+    public void updateUser(User user, Integer id) {
         System.out.println("[UserRepository updateUser: " + id + "]");
         PreparedStatement preparedStatement;
         ArrayList<User> users = new ArrayList<>();
@@ -99,7 +98,7 @@ public class UserRepository {
         }
     }
 
-    public void deleteUserById(@NotNull Integer id) {
+    public void deleteUserById(Integer id) {
         System.out.println("[UserRepository deleteUserById: " + id + "]");
         PreparedStatement preparedStatement;
         ArrayList<User> users = new ArrayList<>();
