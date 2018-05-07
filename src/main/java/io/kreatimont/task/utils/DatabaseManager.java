@@ -18,14 +18,13 @@ public class DatabaseManager {
         return databaseManager;
     }
 
-    private String dbClass = "com.mysql.cj.jdbc.Driver";
-    private String dbUrl = "jdbc:mysql://localhost:3306/taskdb&useSSL=true&serverTimezone=UTC";
-    /*"jdbc:mysql://localhost:3306/taskdb?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
-                            "&useLegacyDatetimeCode=false&serverTimezone=UTC";*/
+    private String dbClass = "com.mysql.jdbc.Driver";
+    private String dbUrl = "jdbc:mysql://localhost:3306/taskdb";
+    /*"jdbc:mysql://localhost:3306/taskdb";*/
 
     //test root - < user
-    private String dbUsername = "root";
-    private String dbPassword = "1mysqlPass";
+    private String dbUsername = "test";
+    private String dbPassword = "root";
 
     public static final String USERS_TABLE = "users";
 

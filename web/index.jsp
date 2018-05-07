@@ -16,7 +16,6 @@
         if(request.getSession(false) != null) {
             request.getSession().removeAttribute("user");
         }
-        request.getSession().invalidate();
     %>
     <div style="width: 250px;
                 height: 200px;

@@ -26,7 +26,7 @@
 
     <servlet>
         <servlet-name>UsersController</servlet-name>
-        <servlet-class>main.java.io.kreatimont.task.servlet.api.UsersController</servlet-class>
+        <servlet-class>main.java.io.kreatimont.task.servlet.api.AllUsersController</servlet-class>
     </servlet>
 
 
